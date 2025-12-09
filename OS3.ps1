@@ -39,6 +39,8 @@ do {
         Write-Host "Fichier enregistré sous : $fileName" -ForegroundColor Green
     }
 
+    $restart = Read-Host "`nVoulez-vous générer une nouvelle table ? (o/n)"
+
 } while ($restart -eq "o")
 
 Write-Host "`nFin du programme."
