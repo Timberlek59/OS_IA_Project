@@ -1,18 +1,37 @@
 ﻿Clear-Host
-Write-Host "=== Générateur de table de multiplication ===n"
+Write-Host "=== Générateur de table de multiplication ===`n"
 
-$inputNumber = Read-Host "Entrez un nombre"
+do {
+    # Demander un nombre
+    $inputNumber = Read-Host "Entrez un nombre"
 
-if (-not ($inputNumber -as [int])) { 
-    Write-Host "`nVeuillez entrer un nombre valide !" 
-    -ForegroundColor Red exit }
+    if (-not ($inputNumber -as [int])) {
+        Write-Host "`nVeuillez entrer un nombre valide !" -ForegroundColor Red
+        continue
+    }
 
-$number = [int]$inputNumber
+    $number = [int]$inputNumber
 
-Write-Host "`nTable de multiplication de $number :`n"
+    $limitInput = Read-Host "Jusqu'à quel multiplicateur souhaitez-vous aller ? (ex: 10, 20, 50)"
+    if (-not ($limitInput -as [int])) {
+        Write-Host "`nValeur invalide, la limite sera fixée à 10." -ForegroundColor Yellow
+        $limit = 10
+    } else {
+        $limit = [int]$limitInput
+    }
 
-for ($i = 1; $i -le 10; $i++) { 
-    $resultat = $number * $i 
-    Write-Host "$number x $i = $resultat" }
+    Write-Host "`nTable de multiplication de $number jusqu'à $limit :`n"
+
+    $tableLines = @()
+
+    for ($i = 1; $i -le $limit; $i++) {
+        $resultat = $number * $i
+        $line = "$number x $i = $resultat"
+        $tableLines += $line
+        Write-Host $line
+    }
+
+} while ($restart -eq "o")
 
 Write-Host "`nFin du programme."
+
